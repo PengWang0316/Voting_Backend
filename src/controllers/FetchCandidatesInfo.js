@@ -1,14 +1,11 @@
-const Logger = require('../utils/Logger');
-const { getPool } = require('../DBHelper');
+const { fetchCandidatesInfo } = require('../../src/models/Candidate');
+const Logger = require('../../src/utils/Logger');
 
-const SQL = 'SELECT * FROM candidates';
-
-module.exports = (req, res) => {
-  getPool().query(SQL, (err, results, fields) => {
-    if (err) {
-      Logger.error(SQL, err);
-      throw err;
-    }
-    res.json(results);
-  });
+module.exports = async (req, res) => {
+  try {
+    res.json(await fetchCandidatesInfo());
+  } catch (err) {
+    Logger.error('/fetchCandidatesInfo', err);
+    res.end();
+  }
 };
