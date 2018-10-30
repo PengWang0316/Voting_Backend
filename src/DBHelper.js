@@ -9,7 +9,11 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-module.exports = {
-  getPool: () => pool,
-  getConnection: callback => pool.getConnection(callback),
-};
+exports.getPool = () => pool;
+
+exports.getConnection = callback => pool.getConnection(callback);
+
+// module.exports = {
+//   getPool: () => pool,
+//   getConnection: callback => pool.getConnection(callback),
+// };
