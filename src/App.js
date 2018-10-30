@@ -7,7 +7,7 @@ const helmet = require('helmet');
 // fallback to regular https when the browers do not support HTTP2 nor SPDY.
 const spdy = require('spdy');
 
-// const normalRouters = require('./routers/NormalRouters');
+const normalRouters = require('./routers/NormalRouters');
 // const facebookAuthRouters = require('./routers/FacebookAuthRouters');
 // const googleAuthRouters = require('./routers/GoogleAuthRouters');
 // const usernamePasswordRouters = require('./routers/UsernamePasswordRouters');
@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(compress());
 
 // define routers
-// app.use('/api/v1', normalRouters);
+app.use('/api/v1', normalRouters);
 // app.use('/api/v1/auth', facebookAuthRouters);
 // app.use('/api/v1/auth', googleAuthRouters);
 // app.use('/api/v1/auth', usernamePasswordRouters);
