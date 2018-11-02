@@ -12,10 +12,15 @@ const normalRouters = require('./routers/NormalRouters');
 // const googleAuthRouters = require('./routers/GoogleAuthRouters');
 // const usernamePasswordRouters = require('./routers/UsernamePasswordRouters');
 
-const credentials = { // Config to use ssl
-  key: fs.readFileSync('./ssl/key.pem'),
-  cert: fs.readFileSync('./ssl/cert.pem'),
-};
+// const credentials = { // Config to use ssl
+//   key: fs.readFileSync('./ssl/key.pem'),
+//   cert: fs.readFileSync('./ssl/cert.pem'),
+// };
+
+// const credentials = { // Config to use ssl
+//   key: fs.readFileSync('/etc/letsencrypt/live/orderstaker.kevin-project.com/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/orderstaker.kevin-project.com/fullchain.pem'),
+// };
 
 require('dotenv').config(); // Loading .env to process.env
 // app.use("/dist", express.static(__dirname + '/dist'));
@@ -44,10 +49,10 @@ app.get('/healthcheck', (req, res) => {
 // Production https server.
 // https.createServer(credentials, app).listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
 
-spdy.createServer(credentials, app).listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
+// spdy.createServer(credentials, app).listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
 
 // Using for creating a http server. Development mode.
-// app.listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
+app.listen(process.env.SERVER_PORT, _ => console.log(`The service is started. port:${process.env.SERVER_PORT}`));
 
 
 /* Run a service without Express
