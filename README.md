@@ -1,6 +1,6 @@
-# Orders Taker Back-end
+# Voting Back-end
 
-The traditional back-end code for Voting.
+The traditional back-end code for Voting. NodeJS + MySQL
 
 ### Simple file structure explanation
 
