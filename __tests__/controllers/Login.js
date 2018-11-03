@@ -21,7 +21,7 @@ describe('Login controller', () => {
     expect(compare).toHaveBeenCalledTimes(1);
     expect(compare).toHaveBeenLastCalledWith(req.query.password, 'password');
     expect(res.json).toHaveBeenCalledTimes(1);
-    expect(res.json).toHaveBeenLastCalledWith({ password: 'password' });
+    expect(res.json).toHaveBeenLastCalledWith({ });
   });
 
   test('fetchOneUser with database error', async () => {
@@ -44,6 +44,7 @@ describe('Login controller', () => {
 
   test('fetchOneUser without database error and does not pass compare', async () => {
     const { fetchOneUser } = require('../../src/models/User');
+    fetchOneUser.mockReturnValueOnce(Promise.resolve([{ password: 'password' }]));
     const { error } = require('../../src/utils/Logger');
     const { compare } = require('bcryptjs');
     compare.mockReturnValueOnce(Promise.resolve(false));
