@@ -6,6 +6,7 @@ require('dotenv').config(); // Loading .env to process.env
 // Controllers import
 const fetchCandidatesInfo = require('../controllers/FetchCandidatesInfo');
 const login = require('../controllers/Login');
+const registerNewUser = require('../controllers/RegisterNewUser');
 
 // cloudinary.config({ // confige the cloudinary library.
 //   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -19,5 +20,8 @@ normalRouter.get('/fetchCandidatesInfo', fetchCandidatesInfo);
 
 /* User login */
 normalRouter.get('/login', login);
+
+/* Register a new user */
+normalRouter.post('/registerNewUser', registerNewUser);
 
 module.exports = normalRouter;
