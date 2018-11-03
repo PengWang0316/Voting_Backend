@@ -37,4 +37,43 @@ describe('User Model', () => {
       expect(error).toHaveBeenCalledTimes(1);
     }
   });
+
+  test('registerNewUser without error', async () => {
+    const { error } = require('../../src/utils/Logger');
+    const { getPool } = require('../../src/DBHelper');
+
+    const user = {
+      username: 'username',
+      password: 'password',
+      name: 'name',
+      photo: 'photo',
+    };
+    const result = await User.registerNewUser(user);
+
+    expect(getPool).toHaveBeenCalledTimes(3);
+    expect(error).toHaveBeenCalledTimes(1);
+    expect(result).toEqual([{ id: 1 }]);
+  });
+
+  test('registerNewUser with database error', async () => {
+    const { error } = require('../../src/utils/Logger');
+    const { getPool } = require('../../src/DBHelper');
+    getPool.mockReturnValueOnce({
+      query: jest.fn().mockImplementation((sql, paramters, cb) => cb({}, [{ id: 1 }], null)),
+    });
+
+    const user = {
+      username: 'username',
+      password: 'password',
+      name: 'name',
+      photo: 'photo',
+    };
+
+    try {
+      await User.registerNewUser(user);
+    } catch (err) {
+      expect(getPool).toHaveBeenCalledTimes(4);
+      expect(error).toHaveBeenCalledTimes(2);
+    }
+  });
 });

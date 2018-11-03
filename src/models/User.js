@@ -2,6 +2,7 @@ const Logger = require('../utils/Logger');
 const { getPool } = require('../DBHelper');
 
 const FETCH_ONE_USER_SQL = 'SELECT * FROM users WHERE username = ? LIMIT 1';
+const REGISTER_NEW_USER_SQL = 'INSERT INTO users (username, password, name, photo) VALUES (?, ?, ?, ?)';
 
 /* Fetching one user based on its id */
 exports.fetchOneUser = username => new Promise((resolve, reject) => {
@@ -20,10 +21,12 @@ exports.fetchOneUser = username => new Promise((resolve, reject) => {
 //     email: 0, facebookId: 0, googleId: 0,
 //   }));
 
-// exports.registerNewUser = user => new Promise((resolve, reject) => {
-//   getDB().collection(COLLECTION_USER)
-//     .insertOne(user, (err, response) => {
-//       if (err) reject(err);
-//       resolve(response.ops[0]);
-//     });
-// });
+exports.registerNewUser = user => new Promise((resolve, reject) => {
+  getPool().query(REGISTER_NEW_USER_SQL, [user.username, user.password, user.name, user.photo], (err, results, fields) => {
+    if (err) {
+      Logger.error(REGISTER_NEW_USER_SQL, err);
+      reject(err);
+    }
+    resolve(results);
+  });
+});
