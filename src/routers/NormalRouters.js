@@ -5,6 +5,7 @@ require('dotenv').config(); // Loading .env to process.env
 
 // Controllers import
 const fetchCandidatesInfo = require('../controllers/FetchCandidatesInfo');
+const login = require('../controllers/Login');
 
 // cloudinary.config({ // confige the cloudinary library.
 //   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -15,5 +16,8 @@ const fetchCandidatesInfo = require('../controllers/FetchCandidatesInfo');
 
 /* Checking jwt token */
 normalRouter.get('/fetchCandidatesInfo', fetchCandidatesInfo);
+
+/* User login */
+normalRouter.get('/login', login);
 
 module.exports = normalRouter;
