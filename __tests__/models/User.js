@@ -8,7 +8,7 @@ jest.mock('../../src/DBHelper', () => ({
 
 jest.mock('../../src/utils/Logger', () => ({ error: jest.fn() }));
 
-// const FETCH_ONE_USER_SQL = 'SELECT * FROM users WHERE username = ? LIMIT 1';
+const VOTE_SQL = 'UPDATE users SET vote_id = ? where id = ? and vote_id = null';
 
 
 describe('User Model', () => {
@@ -75,5 +75,19 @@ describe('User Model', () => {
       expect(getPool).toHaveBeenCalledTimes(4);
       expect(error).toHaveBeenCalledTimes(2);
     }
+  });
+
+  test('vote', () => {
+    const mockQuery = jest.fn();
+    const { getPool } = require('../../src/DBHelper');
+    getPool.mockReturnValueOnce({
+      query: mockQuery,
+    });
+
+    User.vote('userId', 'candidateId');
+
+    expect(getPool).toHaveBeenCalledTimes(5);
+    expect(mockQuery).toHaveBeenCalledTimes(1);
+    expect(mockQuery).toHaveBeenLastCalledWith(VOTE_SQL, ['candidateId', 'userId']);
   });
 });
