@@ -2,6 +2,8 @@
 
 The traditional back-end code for Voting. NodeJS + MySQL
 
+[![Build Status](https://travis-ci.org/PengWang0316/Voting_Backend.svg?branch=master)](https://travis-ci.org/PengWang0316/Voting_Backend) [![Coverage Status](https://coveralls.io/repos/github/PengWang0316/Voting_Backend/badge.svg?branch=master)](https://coveralls.io/github/PengWang0316/Voting_Backend?branch=master) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+
 ### Simple file structure explanation
 
 - src (source code)
