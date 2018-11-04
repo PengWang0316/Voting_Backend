@@ -3,12 +3,14 @@ import LoginController from '../../src/controllers/Login';
 jest.mock('bcryptjs', () => ({ compare: jest.fn().mockReturnValue(Promise.resolve(true)) }));
 jest.mock('../../src/models/User', () => ({ fetchOneUser: jest.fn().mockReturnValue(Promise.resolve([{ password: 'password' }])) }));
 jest.mock('../../src/utils/Logger', () => ({ error: jest.fn() }));
+jest.mock('../../src/utils/JWTUtil', () => ({ signJWT: jest.fn().mockReturnValue('JWT') }));
 
 describe('Login controller', () => {
   test('fetchOneUser without database error and passes compare', async () => {
     const { fetchOneUser } = require('../../src/models/User');
     const { error } = require('../../src/utils/Logger');
     const { compare } = require('bcryptjs');
+    const { signJWT } = require('../../src/utils/JWTUtil');
 
     const req = { query: { username: 'username', password: 'password' } };
     const res = { json: jest.fn() };
@@ -20,8 +22,10 @@ describe('Login controller', () => {
     expect(error).not.toHaveBeenCalled();
     expect(compare).toHaveBeenCalledTimes(1);
     expect(compare).toHaveBeenLastCalledWith(req.query.password, 'password');
+    expect(signJWT).toHaveBeenCalledTimes(1);
+    expect(signJWT).toHaveBeenLastCalledWith({ password: 'password' });
     expect(res.json).toHaveBeenCalledTimes(1);
-    expect(res.json).toHaveBeenLastCalledWith({ });
+    expect(res.json).toHaveBeenLastCalledWith('JWT');
   });
 
   test('fetchOneUser with database error', async () => {
