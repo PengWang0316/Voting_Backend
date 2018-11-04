@@ -3,7 +3,7 @@ const { getPool } = require('../DBHelper');
 
 const FETCH_ONE_USER_SQL = 'SELECT * FROM users WHERE username = ? LIMIT 1';
 const REGISTER_NEW_USER_SQL = 'INSERT INTO users (username, password, name, photo) VALUES (?, ?, ?, ?)';
-const VOTE_SQL = 'UPDATE users SET vote_id = ? where id = ? and vote_id = null';
+const VOTE_SQL = 'UPDATE users SET vote_id = ? where id = ? and vote_id IS NULL';
 
 /* Fetching one user based on its id */
 exports.fetchOneUser = username => new Promise((resolve, reject) => {

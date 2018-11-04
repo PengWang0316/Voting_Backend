@@ -8,7 +8,7 @@ jest.mock('../../src/DBHelper', () => ({
 
 jest.mock('../../src/utils/Logger', () => ({ error: jest.fn() }));
 
-const VOTE_SQL = 'UPDATE users SET vote_id = ? where id = ? and vote_id = null';
+const VOTE_SQL = 'UPDATE users SET vote_id = ? where id = ? and vote_id IS NULL';
 
 
 describe('User Model', () => {
